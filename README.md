@@ -16,3 +16,9 @@ Version progression is Major, Minor, Patch.
 	Added credit function.
 	Temporarily disabled login function.
 
+-0.2.0:
+	Added credit function.
+	Login still works.
+	Details are stored in endless (almost).
+	feildOut in main.py is far too cluncky but that's something to deal with later.
+

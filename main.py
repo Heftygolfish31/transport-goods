@@ -1,5 +1,6 @@
 from easygui import *
 
+
 def login(password):
     access = False
     while access == False:
@@ -15,8 +16,13 @@ def credit():
     title = "Credentials"
     fieldNames = ["Name", "Email", "Card Number", "Expration Date", "Security Code"]
     fieldValues = list(multenterbox(msg, title, fieldNames))
-    name, email, card, expire, secure = fieldValues[0:len(fieldNames)]
+    
+    global fieldOut
+    name, email, card, expire, secure = fieldValues[0:len(fieldValues)]
+    fieldOut = [name, email, card, expire, secure]
+
+    print('\n'.join(fieldValues))
 
 # remove for examination
-#login("test")
+login("test")
 credit()
