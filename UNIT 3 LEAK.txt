@@ -1,0 +1,39 @@
+2
+QUICK DELIVERY PARCEL SERVICE
+The Quick Delivery Parcel Service was founded in 2015 to deliver parcels to homes and businesses
+across South Wales.
+
+The company has established a pricing structure that includes costs to cover the delivery distance,
+the size of the parcel and the requested delivery time. Customers can choose from:
+• Next day delivery before 1pm
+Next day delivery between 8am and 6pm
+• Normal delivery (3-5 working days)
+There is a 50 pence per mile charge for delivery distances over 20 miles - the first 20 miles are free.
+
+
+For example, a large parcel being sent from Cardiff to Swansea (40 miles) to arrive the next day
+would cost:
+• Size charge (from Parcel Table): £27.96
+• Distance charge (from Mileage Table): (40 - 20) £0.50 = £10.00
+• Total charge = Size charge + Distance charge
+•Total charge - £27.96 + £10.00
+• Total charge = £37.96
+
+You have been asked to create an application that will allow the user to:
+• Enter and store the details of a customer and the parcel they wish to send
+• Calculate the total cost of a delivery
+• Create and store an invoice for each delivery
+• Allow users to recall the details of a delivery and update when a parcel was delivered.
+You only need to consider the four locations shown in the table on the next page.
+
+To produce the application, you should:
+• analyse the given information
+• design a solution to the given problem
+• program the solution to the given problem
+• test and refine the application, noting the refinements in your refinement log
+• evaluate your applicaiton.
+
+Produce a report that includes the sections of work included on the Tasks page. Your report should
+be about 2,000 words.
+
+Easy GUI used plz

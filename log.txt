@@ -1,0 +1,13 @@
+Plan:
+
+Msg box 1:
+• Enter name and credit details.
+• Enter parcel details.
+
+Msg box 2:
+• Write and invoice from a specific template (including cost of delivery).
+
+
+Refinment Log:
+
+PRE 1.0.0 SEE README
