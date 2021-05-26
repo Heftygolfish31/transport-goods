@@ -43,5 +43,10 @@ Msg box 2:
 	Very basic check for blank values.
     Moved log to log.txt from README.md. (Just to try it out)
 
--0.2.4 PRE:
-	FILL THIS IS DUMBASS
+-0.3.0: MINOR
+	login() actually lets you exit.
+	Canceling quits program.
+	Fixed error handling system for credit().
+	Passing from credit() fixed.
+	Slightly modified invoice layout.
+	Modified and added comments.
