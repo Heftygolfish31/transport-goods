@@ -29,6 +29,15 @@ def credit():
         global fieldOut
         name, email, card, expire, secure = fieldValues[0:5]
         fieldOut = [name, email, card, expire, secure]
+
+        i = 0
+        for x in fieldOut:
+            if fieldOut[i] == "":
+                msgbox(f"{fieldNames[i]} is a required field")
+                i += 1
+            else:
+                i += 1
+
         # Non essential - DEBUG
         print('\n'.join(fieldValues))
 
@@ -50,5 +59,12 @@ def credit():
 # remove for examination
 login("test")
 
-credit()
+try:
+    credit()
+
+# CATCHING EXCEPTIONS #
+# TypeError to catch canceling an action
+except TypeError:
+    # Non essential - DEBUG
+    print("Operation Cancled")
 

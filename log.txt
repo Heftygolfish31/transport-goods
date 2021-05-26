@@ -7,7 +7,41 @@ Msg box 1:
 Msg box 2:
 • Write and invoice from a specific template (including cost of delivery).
 
+# LOG #
+-0.0.1: PATCH
+	Repository created over python file for testing easyGui.
+	Made project checklisting.
 
-Refinment Log:
+-0.1.0: MINOR
+	Renamed lesseasygui.py to main.py.
+	Added log.txt.
+	Added credit function.
+	Temporarily disabled login function.
 
-PRE 1.0.0 SEE README
+-0.2.0: MINOR
+	Added credit function.
+	Login still works.
+	Details are stored in endless (almost).
+	feildOut in main.py is far too cluncky but that's something to deal with later.
+
+-0.2.1: PATCH
+	Added an invoice sheet.
+	Indented the invoice sheet.
+	Cried (only a little though).
+	You can't style easyGui!
+
+-0.2.2: PATCH
+	Added comments.
+	Added IDEA type comment.
+	Labled code sub-sections.
+	Cleaner function (removing a function actually worked XD )
+	Edited README.md for readability.
+
+-0.2.3: PATCH
+	Added catch segment.
+	Added TypeError catcher for canceling opeations.
+	Very basic check for blank values.
+    Moved log to log.txt from README.md. (Just to try it out)
+
+-0.2.4 PRE:
+	FILL THIS IS DUMBASS
