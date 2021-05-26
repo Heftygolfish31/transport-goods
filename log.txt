@@ -34,7 +34,7 @@ Msg box 2:
 	Added comments.
 	Added IDEA type comment.
 	Labled code sub-sections.
-	Cleaner function (removing a function actually worked XD )
+	Cleaner function (removing a function actually worked XD ).
 	Edited README.md for readability.
 
 -0.2.3: PATCH
@@ -50,3 +50,6 @@ Msg box 2:
 	Passing from credit() fixed.
 	Slightly modified invoice layout.
 	Modified and added comments.
+
+-0.3.1: PATCH
+	Actual working and logical invoice().

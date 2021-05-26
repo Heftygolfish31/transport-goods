@@ -34,9 +34,10 @@ def credit():
         i = 0
         error = False
         for x in fieldOut:
-            if fieldOut[i] == "":
+            if x == "":
                 msgbox(f"{fieldNames[i]} is a required field")
                 error = True
+            #elif len(str(x)) > 
             else:
                 print(f"{fieldNames[i]} OKAY")
 
@@ -54,14 +55,13 @@ def invoice(fieldOut):
         # IDEA: link to .txt file if specs allow it.
         msg = f"INVOICE:\n\nBilled to:\t\t\t{fieldOut[0]}\nContact information:\t\t\t{fieldOut[1]}\nCard details:\t\t\t{fieldOut[2]}\n\t\t\t{fieldOut[3]}\n\t\t\t{fieldOut[4]}"
         title = "Invoice"
-        accurate = ynbox(msg, title)
+        choice = ["Yes", "No"]
+        accurate = boolbox(msg, title, choice)
         
-        # If details verified by user, proceed.
-        if accurate == None:
-            quit()
-        # Else loop back again.
+        if accurate == 0:
+            credit()
         else:
-            continue
+            quit()
         
 
 # RUN FUNCS #
