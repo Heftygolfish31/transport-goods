@@ -2,10 +2,20 @@ Plan:
 
 Msg box 1:
 • Enter name and credit details.
-• Enter parcel details.
 
-Msg box 2:
-• Write and invoice from a specific template (including cost of delivery).
+Msg box 2a & 2b
+• Add location from choice box.
+• Add location to choice box.
+
+Msg box 3:
+• Add parcel size box.
+
+Msg box 4:
+• Add delivery time box.
+
+Msg box 5:
+• Write an invoice from a specific template (including cost of delivery).
+
 
 # LOG #
 -0.0.1: PATCH
@@ -53,3 +63,11 @@ Msg box 2:
 
 -0.3.1: PATCH
 	Actual working and logical invoice().
+
+-0.3.2: PATCH
+	Rearranged the log plan segment.
+	Made quiting the program from a specific window easier with exitProgram().
+	Added tloc and floc readability.
+	floc and tloc handling still in progress.
+	Will edit more at college (if I get the chance)
+	Preparation for invoice modifications.
