@@ -71,3 +71,13 @@ Msg box 5:
 	floc and tloc handling still in progress.
 	Will edit more at college (if I get the chance)
 	Preparation for invoice modifications.
+
+-0.4.0: MINOR
+	Added cluncky table which calculates distance.
+	Edited some msgbox formatting for readability (variables, text length)
+	delivery() now passes floc, tloc and mileage to invoice() through credit() (maybe there is a better way?)
+	Added floc, tloc and mileage to invoice() sheet.
+	Added the mileage sheet for refrence.
+	Squashed some bugs.
+
+-0.4.1 PRE:
