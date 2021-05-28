@@ -22,36 +22,34 @@ def delivery():
     places = ["Cardiff", "Bridgend", "Port Talbort", "Swansea"]
 
     while True:
-        floc = choicebox(msg="Enter your location", title="Location", choices=places)
-        exitProgram(floc)
-        tloc = choicebox(msg="Enter the destination", title="Destination", choices=places)
-        exitProgram(tloc)
+        flocIndex = indexbox(msg="Enter your location", title="Location", choices=places)
+        exitProgram(flocIndex)
+        floc = places[flocIndex]
 
-        if floc == tloc:
-            msg1 = msgbox(msg="You have entered the same place twice! There is nowhere to travel to.")
-            exitProgram(msg1)
-        elif floc == places[0] and tloc == places[1] or floc == places[1] and tloc == places[0]:
-            mileage = 20
-        elif floc == places[0] and tloc == places[2] or floc == places[2] and tloc == places[0]:
-            mileage = 33
-        elif floc == places[0] and tloc == places[3] or floc == places[3] and tloc == places[0]:
-            mileage = 40
-        elif floc == places[1] and tloc == places[2] or floc == places[2] and tloc == places[1]:
-            mileage = 15
-        elif floc == places[1] and tloc == places[3] or floc == places[3] and tloc == places[1]:
-            mileage = 24
-        elif floc == places[2] and tloc == places[3] or floc == places[3] and tloc == places[2]:
-            mileage = 9
-        else:
-            msgbox("Congrats you broke it... dumbass")
-        
+        tlocIndex = indexbox(msg="Enter the destination", title="Destination", choices=places)
+        exitProgram(tlocIndex)
+        tloc = places[tlocIndex]
+
+        mileage0 = [ 0, 20, 33, 40]
+        mileage1 = [20,  0, 15, 24]
+        mileage2 = [33, 15,  0,  9]
+        mileage3 = [40, 24,  9,  0]
+        mileages = [mileage0, mileage1, mileage2, mileage3]
+
+        mileage = mileages[flocIndex][tlocIndex]
+
+        if mileage == 0:
+            same = msgbox(msg="You have entered the same place twice! There is nowhere to travel to.")
+            exitProgram(same)
+
+
         msg = f"Your parcel will be:\n\n\nSent from {floc}\n\nTo {tloc}.\n\n\nYour parcel is travelling {str(mileage)} miles.\n\n\n\t\t\t\tAre these correct?"
         title = "Parcel transfer"
         choice = ["Yes", "No"]
         accurate = boolbox(msg, title, choice)
         
-        if accurate == 0:
-            delivery()
+        if accurate == False:
+            continue
         else:
             wherenwhen(floc, tloc, mileage)
 
@@ -59,41 +57,34 @@ def wherenwhen(floc, tloc, mileage):
     msg = "Choose your parcel size:"
     title  = "Parcel Size"
     sizes = ["Small", "Medium", "Large"]
-    magnitude = buttonbox(msg, title, sizes)
-    exitProgram(magnitude)
+    magIndex = indexbox(msg, title, sizes)
+    exitProgram(magIndex)
+    magnitude = sizes[magIndex]
+
 
     msg = "When do you want your parcel delivered?"
     title = "Delivery Time"
     when = ["Next day before 1pm", "Next day", "Normal delivery"]
-    time = buttonbox(msg, title, when)
-    exitProgram(time)
+    timeIndex = indexbox(msg, title, when)
+    exitProgram(timeIndex)
+    time = when[timeIndex]
 
-    if magnitude == sizes[0] and time == when[0]:
-        price = "20.70"
-    elif magnitude == sizes[1] and time == when[0]:
-        price = "24.18"
-    elif magnitude == sizes[2] and time == when[0]:
-        price = "30.96"
-    elif magnitude == sizes[0] and time == when[1]:
-        price = "17.70"
-    elif magnitude == sizes[1] and time == when[1]:
-        price = "21.12"
-    elif magnitude == sizes[2] and time == when[1]:
-        price = "27.96"
-    elif magnitude == sizes[0] and time == when[2]:
-        price = "13.14"
-    elif magnitude == sizes[1] and time == when[2]:
-        price = "16.62"
-    elif magnitude == sizes[2] and time == when[2]:
-        price = "23.40"
+    prices0 = ["20.70", "17.70", "13.14"]
+    prices1 = ["24.18", "21.12", "16.62"]
+    prices2 = ["30.96", "27.96", "23.40"]
+    prices = [prices0, prices1, prices2]
 
-    msg = f"Your parcel is:\n\n\nIt's size type is: {str(magnitude)}\n\nThe price will be: £{price}\n\n\n\t\t\t\tAre these correct?"
+    price = prices[magIndex][timeIndex]
+
+
+    msg = f"Your parcel is:\n\n\nIt's size type is: {str(magnitude)}\n\nIt will arrive: {time}\n\nThe price will be: £{price}\n\n\n\t\t\t\tAre these correct?"
     title = "Parcel transfer"
     choice = ["Yes", "No"]
     accurate = boolbox(msg, title, choice)
 
-    if accurate == 0:
-        wherenwhen()
+
+    if accurate == False:
+        wherenwhen(floc, tloc, mileage)
     else:
         credit(floc, tloc, mileage, magnitude, time, price)
 
@@ -130,27 +121,21 @@ def invoice(fieldOut, floc, tloc, mileage, magnitude, time, price):
         # Actual invoice display
         # IDEA: link to .txt file if specs allow it.
         msg = f"INVOICE:\n\n\tBilled to:\t\t\t{fieldOut[0]}\n\tContact information:\t\t\t{fieldOut[1]}\n\tCard details:\t\t\t{fieldOut[2]}\
-                \n\t\t\t{fieldOut[3]}\n\t\t\t{fieldOut[4]}\n\n\tSent from:\t\t\t{floc}\n\tTo:\t\t\t{tloc}\n\tDistance:\t\t\t{mileage} miles\
+                \n\t\t\t\t{fieldOut[3]}\n\t\t\t\t{fieldOut[4]}\n\n\tSent from:\t\t\t{floc}\n\tTo:\t\t\t{tloc}\n\tDistance:\t\t\t{mileage} miles\
                 \n\n\tSize:\t\t\t{magnitude}\n\tDelivery time:\t\t\t{time}\n\tPrice:\t\t\t£{str(price)}\n\n\n\t\t\tAre these credit details correct?"
         title = "Invoice"
         choice = ["Yes", "No"]
         accurate = boolbox(msg, title, choice)
         
-        if accurate == 0:
-            credit()
+        if accurate == False:
+            credit(floc, tloc, mileage, magnitude, time, price)
         else:
             quit()
         
 
 # RUN FUNCS #
 
-try:
-    # remove for examination
-    login("test")
-    delivery()
-# CATCHING EXCEPTIONS #
-# TypeError to catch canceling an action with inputs
-except TypeError:
-    # Non essential - DEBUG
-    print("Operation Cancled")
+# remove for examination
+login("test")
+delivery()
 

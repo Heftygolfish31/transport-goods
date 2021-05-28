@@ -69,7 +69,7 @@ Msg box 5:
 	Made quiting the program from a specific window easier with exitProgram().
 	Added tloc and floc readability.
 	floc and tloc handling still in progress.
-	Will edit more at college (if I get the chance)
+	Will edit more at college (if I get the chance).
 	Preparation for invoice modifications.
 
 -0.4.0: MINOR
@@ -81,7 +81,7 @@ Msg box 5:
 	Squashed some bugs.
 
 -0.4.1: PATCH
-	Added size() and when()
+	Added size() and when().
 
 -0.5.0: MINOR
 	Joined two functions into wherenwhen() for ease of access.
@@ -89,3 +89,9 @@ Msg box 5:
 	Linked more functions and passed appropriate variables.
 	Edited invoice() text to add new variables.
 	Almost there...
+
+-0.5.1: PATCH
+	No clunky tables (for distance or price)!
+	No error catch. Should probably just fix it.
+	Edited invoice() to input previous values.
+	choiceboxes are now indexboxes.
