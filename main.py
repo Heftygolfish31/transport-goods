@@ -12,7 +12,6 @@ def login(password):
         locked = passwordbox(msg="Authentication Required", title="Authenticate")
         # If the input from the msg is equal to the correct password, proceed.
         if locked == password:
-            print("Complete")
             access = True
         # Else stop.
         else:
@@ -46,7 +45,7 @@ def delivery():
         else:
             msgbox("Congrats you broke it... dumbass")
         
-        msg = f"Your parcel will be:\n\n\nSent from {floc}\n\nTo {tloc}.\n\n\nYour parcel is travelling {str(mileage)} miles.\n\n\n\t\t\t\tAre they correct?"
+        msg = f"Your parcel will be:\n\n\nSent from {floc}\n\nTo {tloc}.\n\n\nYour parcel is travelling {str(mileage)} miles.\n\n\n\t\t\t\tAre these correct?"
         title = "Parcel transfer"
         choice = ["Yes", "No"]
         accurate = boolbox(msg, title, choice)
@@ -54,26 +53,52 @@ def delivery():
         if accurate == 0:
             delivery()
         else:
-            size(floc, tloc, mileage)
+            wherenwhen(floc, tloc, mileage)
 
-def size(floc, tloc, mileage):
+def wherenwhen(floc, tloc, mileage):
     msg = "Choose your parcel size:"
     title  = "Parcel Size"
     sizes = ["Small", "Medium", "Large"]
     magnitude = buttonbox(msg, title, sizes)
     exitProgram(magnitude)
-    when(floc, tloc, mileage, magnitude, sizes)
 
-def when(floc, tloc, mileage, magnitude, sizes):
     msg = "When do you want your parcel delivered?"
     title = "Delivery Time"
     when = ["Next day before 1pm", "Next day", "Normal delivery"]
     time = buttonbox(msg, title, when)
     exitProgram(time)
-    credit(floc, tloc, mileage, magnitude, sizes, time)
+
+    if magnitude == sizes[0] and time == when[0]:
+        price = "20.70"
+    elif magnitude == sizes[1] and time == when[0]:
+        price = "24.18"
+    elif magnitude == sizes[2] and time == when[0]:
+        price = "30.96"
+    elif magnitude == sizes[0] and time == when[1]:
+        price = "17.70"
+    elif magnitude == sizes[1] and time == when[1]:
+        price = "21.12"
+    elif magnitude == sizes[2] and time == when[1]:
+        price = "27.96"
+    elif magnitude == sizes[0] and time == when[2]:
+        price = "13.14"
+    elif magnitude == sizes[1] and time == when[2]:
+        price = "16.62"
+    elif magnitude == sizes[2] and time == when[2]:
+        price = "23.40"
+
+    msg = f"Your parcel is:\n\n\nIt's size type is: {str(magnitude)}\n\nThe price will be: £{price}\n\n\n\t\t\t\tAre these correct?"
+    title = "Parcel transfer"
+    choice = ["Yes", "No"]
+    accurate = boolbox(msg, title, choice)
+
+    if accurate == 0:
+        wherenwhen()
+    else:
+        credit(floc, tloc, mileage, magnitude, time, price)
 
 # Handles card details and loops if you don't input the right details.
-def credit(floc, tloc, mileage, magnitude, sizes, time):
+def credit(floc, tloc, mileage, magnitude, time, price):
     while True:
         # IDEA: is having both variables named 'msg' a bad idea?
         msg = "Enter credentials"
@@ -93,23 +118,20 @@ def credit(floc, tloc, mileage, magnitude, sizes, time):
                 msgbox(f"{fieldNames[i]} is a required field")
                 error = True
             else:
-                continue
+                print(f"{fieldNames[i]} OKAY")
 
             i += 1
 
         if error == False:
-            invoice(fieldOut, floc, tloc, mileage)
-        
-        # Non essential - DEBUG
-        print('\n'.join(fieldValues))
+            invoice(fieldOut, floc, tloc, mileage, magnitude, time, price)
 
-def invoice(fieldOut, floc, tloc, mileage):
+def invoice(fieldOut, floc, tloc, mileage, magnitude, time, price):
     while True:
         # Actual invoice display
         # IDEA: link to .txt file if specs allow it.
-        msg = f"INVOICE:\n\nBilled to:\t\t\t{fieldOut[0]}\nContact information:\t\t\t{fieldOut[1]}\nCard details:\t\t\t{fieldOut[2]}\
-                \n\t\t\t{fieldOut[3]}\n\t\t\t{fieldOut[4]}\n\nSent from:\t\t\t{floc}\nTo:\t\t\t{tloc}\nDistance:\t\t\t{mileage} miles.\n\
-                \n\n\n\t\t\tAre the credit details correct?"
+        msg = f"INVOICE:\n\n\tBilled to:\t\t\t{fieldOut[0]}\n\tContact information:\t\t\t{fieldOut[1]}\n\tCard details:\t\t\t{fieldOut[2]}\
+                \n\t\t\t{fieldOut[3]}\n\t\t\t{fieldOut[4]}\n\n\tSent from:\t\t\t{floc}\n\tTo:\t\t\t{tloc}\n\tDistance:\t\t\t{mileage} miles\
+                \n\n\tSize:\t\t\t{magnitude}\n\tDelivery time:\t\t\t{time}\n\tPrice:\t\t\t£{str(price)}\n\n\n\t\t\tAre these credit details correct?"
         title = "Invoice"
         choice = ["Yes", "No"]
         accurate = boolbox(msg, title, choice)
@@ -126,7 +148,6 @@ try:
     # remove for examination
     login("test")
     delivery()
-
 # CATCHING EXCEPTIONS #
 # TypeError to catch canceling an action with inputs
 except TypeError:

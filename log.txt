@@ -83,4 +83,9 @@ Msg box 5:
 -0.4.1: PATCH
 	Added size() and when()
 
--0.4.2 PRE:
+-0.5.0: MINOR
+	Joined two functions into wherenwhen() for ease of access.
+	Added cluncky table for calculating price.
+	Linked more functions and passed appropriate variables.
+	Edited invoice() text to add new variables.
+	Almost there...
