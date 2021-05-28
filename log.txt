@@ -80,4 +80,7 @@ Msg box 5:
 	Added the mileage sheet for refrence.
 	Squashed some bugs.
 
--0.4.1 PRE:
+-0.4.1: PATCH
+	Added size() and when()
+
+-0.4.2 PRE:

@@ -46,7 +46,7 @@ def delivery():
         else:
             msgbox("Congrats you broke it... dumbass")
         
-        msg = f"Your parcel will be:\n\n\nSent from {floc}\n\nTo {tloc}.\n\n\nYour parcel is travelling {str(mileage)} miles.\n\n\n\t\t\t\tAre these correct?"
+        msg = f"Your parcel will be:\n\n\nSent from {floc}\n\nTo {tloc}.\n\n\nYour parcel is travelling {str(mileage)} miles.\n\n\n\t\t\t\tAre they correct?"
         title = "Parcel transfer"
         choice = ["Yes", "No"]
         accurate = boolbox(msg, title, choice)
@@ -54,10 +54,26 @@ def delivery():
         if accurate == 0:
             delivery()
         else:
-            credit(floc, tloc, mileage)
+            size(floc, tloc, mileage)
+
+def size(floc, tloc, mileage):
+    msg = "Choose your parcel size:"
+    title  = "Parcel Size"
+    sizes = ["Small", "Medium", "Large"]
+    magnitude = buttonbox(msg, title, sizes)
+    exitProgram(magnitude)
+    when(floc, tloc, mileage, magnitude, sizes)
+
+def when(floc, tloc, mileage, magnitude, sizes):
+    msg = "When do you want your parcel delivered?"
+    title = "Delivery Time"
+    when = ["Next day before 1pm", "Next day", "Normal delivery"]
+    time = buttonbox(msg, title, when)
+    exitProgram(time)
+    credit(floc, tloc, mileage, magnitude, sizes, time)
 
 # Handles card details and loops if you don't input the right details.
-def credit(floc, tloc, mileage):
+def credit(floc, tloc, mileage, magnitude, sizes, time):
     while True:
         # IDEA: is having both variables named 'msg' a bad idea?
         msg = "Enter credentials"
@@ -77,7 +93,7 @@ def credit(floc, tloc, mileage):
                 msgbox(f"{fieldNames[i]} is a required field")
                 error = True
             else:
-                print(f"{fieldNames[i]} OKAY")
+                continue
 
             i += 1
 
@@ -92,8 +108,8 @@ def invoice(fieldOut, floc, tloc, mileage):
         # Actual invoice display
         # IDEA: link to .txt file if specs allow it.
         msg = f"INVOICE:\n\nBilled to:\t\t\t{fieldOut[0]}\nContact information:\t\t\t{fieldOut[1]}\nCard details:\t\t\t{fieldOut[2]}\
-                \n\t\t\t{fieldOut[3]}\n\t\t\t{fieldOut[4]}\n\nSent from:\t\t\t{floc}\nTo:\t\t\t{tloc}\nDistance:\t\t\t{mileage} miles.\
-                \n\n\n\t\t\t\tAre these correct?"
+                \n\t\t\t{fieldOut[3]}\n\t\t\t{fieldOut[4]}\n\nSent from:\t\t\t{floc}\nTo:\t\t\t{tloc}\nDistance:\t\t\t{mileage} miles.\n\
+                \n\n\n\t\t\tAre the credit details correct?"
         title = "Invoice"
         choice = ["Yes", "No"]
         accurate = boolbox(msg, title, choice)
