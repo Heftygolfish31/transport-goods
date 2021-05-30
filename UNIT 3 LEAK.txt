@@ -5,10 +5,10 @@ across South Wales.
 
 The company has established a pricing structure that includes costs to cover the delivery distance,
 the size of the parcel and the requested delivery time. Customers can choose from:
-• Next day delivery before 1pm
-Next day delivery between 8am and 6pm
-• Normal delivery (3-5 working days)
-There is a 50 pence per mile charge for delivery distances over 20 miles - the first 20 miles are free.
+• Next day delivery before 1pm --- DONE
+• Next day delivery between 8am and 6pm --- DONE
+• Normal delivery (3-5 working days) --- DONE
+There is a 50 pence per mile charge for delivery distances over 20 miles - the first 20 miles are free. --- DONE
 
 
 For example, a large parcel being sent from Cardiff to Swansea (40 miles) to arrive the next day
@@ -16,13 +16,14 @@ would cost:
 • Size charge (from Parcel Table): £27.96
 • Distance charge (from Mileage Table): (40 - 20) £0.50 = £10.00
 • Total charge = Size charge + Distance charge
-•Total charge - £27.96 + £10.00
+• Total charge - £27.96 + £10.00
 • Total charge = £37.96
+    --- DONE
 
 You have been asked to create an application that will allow the user to:
-• Enter and store the details of a customer and the parcel they wish to send
-• Calculate the total cost of a delivery
-• Create and store an invoice for each delivery
+• Enter and store the details of a customer and the parcel they wish to send --- DONE
+• Calculate the total cost of a delivery --- DONE
+• Create and store an invoice for each delivery --- DONE
 • Allow users to recall the details of a delivery and update when a parcel was delivered.
 You only need to consider the four locations shown in the table on the next page.
 

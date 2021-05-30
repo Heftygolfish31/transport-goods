@@ -102,3 +102,11 @@ Msg box 5:
 	Variables are simply returned to the function instead of calling the next function.
 	Much more commenting.
 	Removed first location from the second.
+
+-0.5.3: PATCH
+	Edited invoice text.
+	Added goodbye() for goodbye message.
+	Added credit() detail checker box.
+	Edited the when() text to give more information.
+	Checked off UNIT 3 LEAK.txt.
+	Added previously unforseen mileage cost.
