@@ -75,7 +75,7 @@ Msg box 5:
 -0.4.0: MINOR
 	Added cluncky table which calculates distance.
 	Edited some msgbox formatting for readability (variables, text length)
-	delivery() now passes floc, tloc and mileage to invoice() through credit() (maybe there is a better way?)
+	where() now passes floc, tloc and mileage to invoice() through credit() (maybe there is a better way?)
 	Added floc, tloc and mileage to invoice() sheet.
 	Added the mileage sheet for refrence.
 	Squashed some bugs.
@@ -84,7 +84,7 @@ Msg box 5:
 	Added size() and when().
 
 -0.5.0: MINOR
-	Joined two functions into wherenwhen() for ease of access.
+	Joined two functions into carriage() for ease of access.
 	Added cluncky table for calculating price.
 	Linked more functions and passed appropriate variables.
 	Edited invoice() text to add new variables.
@@ -95,3 +95,10 @@ Msg box 5:
 	No error catch. Should probably just fix it.
 	Edited invoice() to input previous values.
 	choiceboxes are now indexboxes.
+
+-0.5.2: PATCH
+	Simplified some while statements.
+	Renamed delivery() to where() and wherenwhen() to carriage().
+	Variables are simply returned to the function instead of calling the next function.
+	Much more commenting.
+	Removed first location from the second.

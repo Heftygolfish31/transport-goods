@@ -7,89 +7,98 @@ def exitProgram(window):
 
 def login(password):
     # Have you inputed the right password? (as specified in the function parameter)
-    access = False
-    while access == False:
+    while True:
         locked = passwordbox(msg="Authentication Required", title="Authenticate")
+        exitProgram(locked)
         # If the input from the msg is equal to the correct password, proceed.
         if locked == password:
-            access = True
-        # Else stop.
-        else:
-            exitProgram(locked)
+            break
 
-def delivery():
-    
-    places = ["Cardiff", "Bridgend", "Port Talbort", "Swansea"]
-
+def where():
     while True:
+        # Places the parcel can be sent or recieved from.
+        places = ["Cardiff", "Bridgend", "Port Talbort", "Swansea"]
+
+        # Where the parcel is coming from
+        msg = "Enter your location"
+        title = "Location"
+        choices = places
         flocIndex = indexbox(msg="Enter your location", title="Location", choices=places)
         exitProgram(flocIndex)
         floc = places[flocIndex]
+        # Remove the floc from the places list, but keeping its value to be used in the invoice
+        places.remove(floc)
 
-        tlocIndex = indexbox(msg="Enter the destination", title="Destination", choices=places)
+        # Where the parcel is recieved from
+        msg = "Enter the destination"
+        title = "Destination"
+        choices = places
+        tlocIndex = indexbox(msg, title, choices)
         exitProgram(tlocIndex)
         tloc = places[tlocIndex]
 
-        mileage0 = [ 0, 20, 33, 40]
-        mileage1 = [20,  0, 15, 24]
-        mileage2 = [33, 15,  0,  9]
-        mileage3 = [40, 24,  9,  0]
+        # Table to avoid additional modules or unnessecarry elif statments
+        mileage0 = [20, 33, 40]
+        mileage1 = [20, 15, 24]
+        mileage2 = [33, 15,  9]
+        mileage3 = [40, 24,  9]
         mileages = [mileage0, mileage1, mileage2, mileage3]
-
+        # Request location in the table
         mileage = mileages[flocIndex][tlocIndex]
 
-        if mileage == 0:
-            same = msgbox(msg="You have entered the same place twice! There is nowhere to travel to.")
-            exitProgram(same)
-
-
+        # Check the details are correct
         msg = f"Your parcel will be:\n\n\nSent from {floc}\n\nTo {tloc}.\n\n\nYour parcel is travelling {str(mileage)} miles.\n\n\n\t\t\t\tAre these correct?"
         title = "Parcel transfer"
         choice = ["Yes", "No"]
         accurate = boolbox(msg, title, choice)
-        
-        if accurate == False:
-            continue
-        else:
-            wherenwhen(floc, tloc, mileage)
+        exitProgram(accurate)
 
-def wherenwhen(floc, tloc, mileage):
-    msg = "Choose your parcel size:"
-    title  = "Parcel Size"
-    sizes = ["Small", "Medium", "Large"]
-    magIndex = indexbox(msg, title, sizes)
-    exitProgram(magIndex)
-    magnitude = sizes[magIndex]
+        if accurate == True:
+            break
 
+    return floc, tloc, mileage
 
-    msg = "When do you want your parcel delivered?"
-    title = "Delivery Time"
-    when = ["Next day before 1pm", "Next day", "Normal delivery"]
-    timeIndex = indexbox(msg, title, when)
-    exitProgram(timeIndex)
-    time = when[timeIndex]
-
-    prices0 = ["20.70", "17.70", "13.14"]
-    prices1 = ["24.18", "21.12", "16.62"]
-    prices2 = ["30.96", "27.96", "23.40"]
-    prices = [prices0, prices1, prices2]
-
-    price = prices[magIndex][timeIndex]
+def carriage():
+    while True:
+        msg = "Choose your parcel size:"
+        title  = "Parcel Size"
+        sizes = ["Small", "Medium", "Large"]
+        magIndex = indexbox(msg, title, sizes)
+        exitProgram(magIndex)
+        magnitude = sizes[magIndex]
 
 
-    msg = f"Your parcel is:\n\n\nIt's size type is: {str(magnitude)}\n\nIt will arrive: {time}\n\nThe price will be: £{price}\n\n\n\t\t\t\tAre these correct?"
-    title = "Parcel transfer"
-    choice = ["Yes", "No"]
-    accurate = boolbox(msg, title, choice)
+        msg = "When do you want your parcel delivered?"
+        title = "Delivery Time"
+        when = ["Next day before 1pm", "Next day", "Normal delivery"]
+        timeIndex = indexbox(msg, title, when)
+        exitProgram(timeIndex)
+        time = when[timeIndex]
+
+        # Table to avoid unnececarry elif statments
+        # Strings to avoid trailing 0's
+        prices0 = ["20.70", "17.70", "13.14"]
+        prices1 = ["24.18", "21.12", "16.62"]
+        prices2 = ["30.96", "27.96", "23.40"]
+        prices = [prices0, prices1, prices2]
+
+        price = prices[magIndex][timeIndex]
+
+        # Check your details are correct
+        msg = f"Your parcel is:\n\n\nIt's size type is: {str(magnitude)}\n\nIt will arrive: {time}\n\nThe price will be: £{price}\n\n\n\t\t\t\tAre these correct?"
+        title = "Parcel transfer"
+        choice = ["Yes", "No"]
+        accurate = boolbox(msg, title, choice)
 
 
-    if accurate == False:
-        wherenwhen(floc, tloc, mileage)
-    else:
-        credit(floc, tloc, mileage, magnitude, time, price)
+        if accurate == True:
+            # Passing
+            break
+
+    return magnitude, time, price
 
 # Handles card details and loops if you don't input the right details.
-def credit(floc, tloc, mileage, magnitude, time, price):
+def credit():
     while True:
         # IDEA: is having both variables named 'msg' a bad idea?
         msg = "Enter credentials"
@@ -109,12 +118,14 @@ def credit(floc, tloc, mileage, magnitude, time, price):
                 msgbox(f"{fieldNames[i]} is a required field")
                 error = True
             else:
-                print(f"{fieldNames[i]} OKAY")
+                pass
 
             i += 1
 
         if error == False:
-            invoice(fieldOut, floc, tloc, mileage, magnitude, time, price)
+            break
+
+    return fieldOut
 
 def invoice(fieldOut, floc, tloc, mileage, magnitude, time, price):
     while True:
@@ -128,7 +139,7 @@ def invoice(fieldOut, floc, tloc, mileage, magnitude, time, price):
         accurate = boolbox(msg, title, choice)
         
         if accurate == False:
-            credit(floc, tloc, mileage, magnitude, time, price)
+            credit()
         else:
             quit()
         
@@ -137,5 +148,7 @@ def invoice(fieldOut, floc, tloc, mileage, magnitude, time, price):
 
 # remove for examination
 login("test")
-delivery()
-
+floc, tloc, mileage = where()
+magnitude, time, price = carriage()
+fieldOut = credit()
+invoice(fieldOut, floc, tloc, mileage, magnitude, time, price)

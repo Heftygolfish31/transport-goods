@@ -1,5 +1,5 @@
 Repo: transport-goods
-Ver: 0.5.1
+Ver: 0.5.2
 App: lesseasygui.py
 
 # NOTES #
