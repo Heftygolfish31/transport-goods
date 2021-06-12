@@ -67,7 +67,6 @@ def carriage(mileage):
         exitProgram(magIndex)
         magnitude = sizes[magIndex]
 
-
         msg = "When do you want your parcel delivered?"
         title = "Delivery Time"
         when = ["Next day before 1pm", "Next day between 8am and 6pm", "Normal delivery (3 - 5 working days)"]
@@ -110,33 +109,62 @@ def credit():
         # IDEA: is having both variables named 'msg' a bad idea?
         msg = "Enter credentials"
         title = "Credentials"
-        fieldNames = ["Name", "Email", "Card Number", "Expration Date", "Security Code"]
+        fieldNames = ["Name", "Email", "Card Number", "Expration Date", "CVV"]
         fieldValues = list(multenterbox(msg, title, fieldNames))
         exitProgram(fieldValues)
 
-        # Handels inputed values into discriptive variables.
-        name, email, card, expire, secure = fieldValues[0:5]
-        fieldOut = [name, email, card, expire, secure]
+        # Handles inputed values into discriptive variables.
+        
+        name, email, card, expire, cvv = fieldValues[0:5]
+        fieldOut = [name.title(), email, card, expire, cvv]
+        error = False
 
         i = 0
-        error = False
         for x in fieldOut:
             if x == "":
-                msgbox(f"{fieldNames[i]} is a required field")
+                msgbox(f"{fieldNames[i]} is a required field", "Error")
                 error = True
-            else:
-                pass
-            i += 1
+            i +=  1
 
-        msg = f"Your credit card details are:\n\nName: {fieldOut[0]}\n\nEmail: {fieldOut[1]}\n\nCard Number: {fieldOut[2]}\n\nExpiration Date: {fieldOut[3]}\n\nSecurity Code: {fieldOut[4]}\n\n\n\t\t\t\tAre these correct?"
-        title = "Credit Details"
-        choice = ["Yes", "No"]
-        accurate = boolbox(msg, title, choice)
-        exitProgram(accurate)
+            # NAME CHECK #
+                # Shorter than 25 char
+        if len(fieldOut[0]) > 25:
+            msgbox(f"{fieldNames[0]} is too long!\n\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
+            error = True
+        elif fieldOut[0].find(" ") == -1:
+            msgbox(f"Full name please", "Error")
+            error = True
 
-        if accurate == True:
-            # Passing
-            break
+            # EMAIL CHECK #
+        elif fieldOut[1].find("@") == -1 or fieldOut[1].find(".") == -1:
+            msgbox(f"{fieldNames[1]} isn't formatted properly.\nRemember to use a '@' and a '.'.\n\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
+            error = True
+
+            # CARD NUMBER CHECK #
+        elif len(fieldOut[2]) > 23:
+            msgbox(f"{fieldNames[2]} isn't formatted properly.\nMax: 23 digits\n\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
+            error = True
+
+            # EXPIRATION DATE #
+        elif fieldOut[3].find("/") == -1 or len(fieldOut[3]) != 5:
+            msgbox(f"{fieldNames[3]} isn't formatted properly.\nRemember to use a '/' and 5 digits.\n\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
+            error = True
+        elif i == 3:
+            for char in fieldOut[3]:
+                if char != "0" and char != "1" and char != "2" and char != "3" and char != "4" and char != "5" and char != "6" and char != "7" and char != "8" and char != "9" and char != "/":
+                    msgbox(f"{fieldNames[3]} must contain numbers\n\nContact help team at 'quitesadgeese@gmail.com'", "Error")
+                    error = True
+                    break
+
+        if error == False:
+            msg = f"Your credit card details are:\n\nName: {fieldOut[0]}\n\nEmail: {fieldOut[1]}\n\nCard Number: {fieldOut[2]}\n\nExpiration Date: {fieldOut[3]}\n\nCVV: {fieldOut[4]}\n\n\n\t\t\t\tAre these correct?"
+            title = "Credit Details"
+            choice = ["Yes", "No"]
+            accurate = boolbox(msg, title, choice)
+            exitProgram(accurate)
+
+            if accurate == True:
+                break
 
     return fieldOut
 
@@ -148,13 +176,9 @@ def invoice(fieldOut, floc, tloc, mileage, magnitude, time, price):
                 \n\t\t\t\t{fieldOut[3]}\n\t\t\t\t{fieldOut[4]}\n\n\tSent from:\t\t\t{floc}\n\tTo:\t\t\t{tloc}\n\tDistance:\t\t\t{mileage} miles\
                 \n\n\tSize:\t\t\t{magnitude}\n\tDelivery time:\t\t\t{time}\n\tPrice:\t\t\t£{str(price)}"
         title = "Invoice"
-        choice = ["Yes", "No"]
-        accurate = boolbox(msg, title, choice)
-        
-        if accurate == False:
-            credit()
-        else:
-            break
+        accurate = msgbox(msg, title)
+        exitProgram(accurate)
+        break
 
 def goodbye(fieldOut):
     msg = f"Goodbye {fieldOut[0]}. Thank you for shopping with us!"

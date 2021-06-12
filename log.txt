@@ -110,3 +110,24 @@ Msg box 5:
 	Edited the when() text to give more information.
 	Checked off UNIT 3 LEAK.txt.
 	Added previously unforseen mileage cost.
+
+-0.5.4 : PATCH
+	It's not a security code, it's called a CVV.
+	Started adding exceptions and checks to credit():
+	NAME-
+		Must be shorter than 25 charcters.
+		Must be more than one name (must have a " ").
+	EMAIL-
+		Must be formatted with an "@" and a ".".
+	CARD NUMBER-
+		No more than 23 chracters (as per american standards with added whitespace charcters)
+	EXPIRE-
+		Must include a "/".
+		Must be 5 charcters long (**/**).
+		Cannot contain illegal charcters (numbers "0-9" and a "/" only). <Too cluncky!>
+
+	Adapted credit card checker.
+	Sleeker invoice check.
+
+
+
