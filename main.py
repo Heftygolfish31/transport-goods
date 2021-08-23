@@ -1,4 +1,5 @@
 # IMPORT #
+from tkinter.constants import E, FLAT
 from easygui import *
 
 def exitProgram(window):
@@ -47,7 +48,16 @@ def where():
         mileage = mileages[flocIndex][tlocIndex]
 
         # Check the details are correct
-        msg = f"Your parcel will be:\n\n\nSent from {floc}\n\nTo {tloc}.\n\n\nYour parcel is travelling {str(mileage)} miles.\n\n\n\t\t\t\tAre these correct?"
+        msg = f"""
+    PARCEL INFO:
+
+        Sent from:          {floc}.
+        Sent to:            {tloc}.
+        Distance:           {str(mileage)} miles.
+
+                                
+                               Are these correct?
+"""
         title = "Parcel transfer"
         choice = ["Yes", "No"]
         accurate = boolbox(msg, title, choice)
@@ -93,7 +103,15 @@ def carriage(mileage):
         price = format(price, '.2f')
 
         # Check your details are correct
-        msg = f"Your parcel is:\n\n\nIt's size type is: {str(magnitude)}\n\nIt will arrive: {time}\n\nThe price will be: £{price}\n\n\n\t\t\t\tAre these correct?"
+        msg = f"""
+    PARCEL INFO:
+
+        Size Type:          {str(magnitude)}
+        Arrival Time:       {time}
+        Price:              £{price}
+
+                               Are these correct?
+"""
         title = "Parcel transfer"
         choice = ["Yes", "No"]
         accurate = boolbox(msg, title, choice)
@@ -106,64 +124,66 @@ def carriage(mileage):
 # Handles card details and loops if you don't input the right details.
 def credit():
     while True:
+        forbidden = ['?', '/', '\\', '!', ',', ';', ':', '-', ')', '(', '}', '{', '[', ']', '\'', '"', '.', '>', '<', '^', '%', '#', '~', '@', '£', '$', '*', '_', '+', ' ', 'doi', 'pmid', 'scid', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+        numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
         # IDEA: is having both variables named 'msg' a bad idea?
         msg = "Enter credentials"
         title = "Credentials"
         fieldNames = ["Name", "Email", "Card Number", "Expration Date", "CVV"]
-        fieldValues = list(multenterbox(msg, title, fieldNames))
+        # DEBUG #
+        placeholder = ['Skylar Garrett', "quitesadgeese@gmail.com", '1234 1234 1234 1234', '12/12', '123']
+        fieldValues = list(multenterbox(msg, title, fieldNames, placeholder))
         exitProgram(fieldValues)
 
-        # Handles inputed values into discriptive variables.
+        # Handels inputed values into discriptive variables.
         
         name, email, card, expire, cvv = fieldValues[0:5]
         fieldOut = [name.title(), email, card, expire, cvv]
-        error = False
+        error = True
 
         i = 0
-        for x in fieldOut:
-            if x == "":
+        for field in fieldOut:
+            if field == '':
                 msgbox(f"{fieldNames[i]} is a required field", "Error")
                 error = True
-            i +=  1
+            i += 1
 
-            # NAME CHECK #
-                # Shorter than 25 char
         if len(fieldOut[0]) > 25:
-            msgbox(f"{fieldNames[0]} is too long!\n\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
-            error = True
-        elif fieldOut[0].find(" ") == -1:
-            msgbox(f"Full name please", "Error")
-            error = True
-
-            # EMAIL CHECK #
+            msgbox(f"{fieldNames[0]} is too long!\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
+        
         elif fieldOut[1].find("@") == -1 or fieldOut[1].find(".") == -1:
-            msgbox(f"{fieldNames[1]} isn't formatted properly.\nRemember to use a '@' and a '.'.\n\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
-            error = True
-
-            # CARD NUMBER CHECK #
+            msgbox(f"{fieldNames[1]} isn't formatted properly.\nRemember to use a '@' and a '.'.\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
+        
         elif len(fieldOut[2]) > 23:
-            msgbox(f"{fieldNames[2]} isn't formatted properly.\nMax: 23 digits\n\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
-            error = True
-
-            # EXPIRATION DATE #
+            msgbox(f"{fieldNames[2]} //TEST// is too long!\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
+            
         elif fieldOut[3].find("/") == -1 or len(fieldOut[3]) != 5:
-            msgbox(f"{fieldNames[3]} isn't formatted properly.\nRemember to use a '/' and 5 digits.\n\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
-            error = True
-        elif i == 3:
-            for char in fieldOut[3]:
-                if char != "0" and char != "1" and char != "2" and char != "3" and char != "4" and char != "5" and char != "6" and char != "7" and char != "8" and char != "9" and char != "/":
-                    msgbox(f"{fieldNames[3]} must contain numbers\n\nContact help team at 'quitesadgeese@gmail.com'", "Error")
-                    error = True
-                    break
+            msgbox(f"{fieldNames[3]} isn't formatted properly.\nRemember to use a '/' and 5 digits.\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
+        
+        elif not fieldOut[4].isdigit():
+            msgbox(f"{fieldNames[4]} isn't formatted properly.\n{fieldNames[4]} can only contain numbers.\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
+        else:
+            error = False
 
         if error == False:
-            msg = f"Your credit card details are:\n\nName: {fieldOut[0]}\n\nEmail: {fieldOut[1]}\n\nCard Number: {fieldOut[2]}\n\nExpiration Date: {fieldOut[3]}\n\nCVV: {fieldOut[4]}\n\n\n\t\t\t\tAre these correct?"
+            msg = f"""
+    Card Details:
+    
+        Name:               {fieldOut[0]}
+        Email:              {fieldOut[1]}
+        Card Number:        {fieldOut[2]}
+        Expiration Date:    {fieldOut[3]}
+        CVV:                {fieldOut[4]}
+
+                               Are these correct?
+"""
             title = "Credit Details"
             choice = ["Yes", "No"]
             accurate = boolbox(msg, title, choice)
             exitProgram(accurate)
 
             if accurate == True:
+                # Passing
                 break
 
     return fieldOut
@@ -172,9 +192,21 @@ def invoice(fieldOut, floc, tloc, mileage, magnitude, time, price):
     while True:
         # Actual invoice display
         # IDEA: link to .txt file if specs allow it.
-        msg = f"INVOICE:\n\n\tBilled to:\t\t\t{fieldOut[0]}\n\tContact information:\t\t\t{fieldOut[1]}\n\tCard details:\t\t\t{fieldOut[2]}\
-                \n\t\t\t\t{fieldOut[3]}\n\t\t\t\t{fieldOut[4]}\n\n\tSent from:\t\t\t{floc}\n\tTo:\t\t\t{tloc}\n\tDistance:\t\t\t{mileage} miles\
-                \n\n\tSize:\t\t\t{magnitude}\n\tDelivery time:\t\t\t{time}\n\tPrice:\t\t\t£{str(price)}"
+        msg = f"""
+    INVOICE:
+
+        Billed to:              {fieldOut[0]}
+        Contact information:    {fieldOut[1]}
+        Card details:           {fieldOut[2]}
+                                {fieldOut[3]}
+                                {fieldOut[4]}
+        Sent from:              {floc}
+        To:                     {tloc}
+        Distance:               {mileage} miles
+        Size:                   {magnitude}
+        Delivery time:          {time}
+        Price:                  £{str(price)}
+"""
         title = "Invoice"
         accurate = msgbox(msg, title)
         exitProgram(accurate)

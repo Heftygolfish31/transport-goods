@@ -111,7 +111,7 @@ Msg box 5:
 	Checked off UNIT 3 LEAK.txt.
 	Added previously unforseen mileage cost.
 
--0.5.4 : PATCH
+-0.5.4: PATCH
 	It's not a security code, it's called a CVV.
 	Started adding exceptions and checks to credit():
 	NAME-
@@ -129,5 +129,11 @@ Msg box 5:
 	Adapted credit card checker.
 	Sleeker invoice check.
 
+-0.5.5: PATCH
+	Only numbers as mentioned in EXPIRE (see 0.5.4) is now exceedingly less clunky.
+	Added checks.txt to keep track of rules of input.
+	Help team text for error boxes is a variable for continuity purposes.
 
-
+-0.6.0: MINOR
+	Replace every '/t' or '/u' in text descriptions (and it's almost perfect!).
+	
