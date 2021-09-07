@@ -1,5 +1,4 @@
-Plan:
-
+# PLAN #
 Msg box 1:
 • Enter name and credit details.
 
@@ -15,6 +14,21 @@ Msg box 4:
 
 Msg box 5:
 • Write an invoice from a specific template (including cost of delivery).
+
+
+# TEST STRATEGY #
+- Try to enter expected parameter:-
+	Expiration Date: 12/12
+
+- Try to enter unexpected parameter(s) and expect an error:-
+	Expiration Date: 12.12.
+	error
+
+- If no error, debug.
+
+- Refine other elements (spacing, spelling, construction ect.)
+
+- Record improvment in refinment log.
 
 
 # LOG #
@@ -136,4 +150,5 @@ Msg box 5:
 
 -0.6.0: MINOR
 	Replace every '/t' or '/u' in text descriptions (and it's almost perfect!).
+	Added a purely satisfying yet completely redundant more complex password system.
 	

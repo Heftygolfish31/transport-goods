@@ -1,19 +1,30 @@
 # IMPORT #
-from tkinter.constants import E, FLAT
 from easygui import *
 
 def exitProgram(window):
     if window == None:
         quit()
 
+def noAccess():
+    accessMsg = msgbox(msg="Password Incorrect", title="Goodbye!", ok_button="Exit")
+    exitProgram(accessMsg)
+
 def login(password):
+    tries = 3
+    correct = False
     # Have you inputed the right password? (as specified in the function parameter)
-    while True:
-        locked = passwordbox(msg="Authentication Required", title="Authenticate")
-        exitProgram(locked)
+    while tries != 0:
+        loginInput = passwordbox(msg=f"Authentication Required\nTries left: {tries}", title="Authenticate")
+        exitProgram(loginInput)
+        
         # If the input from the msg is equal to the correct password, proceed.
-        if locked == password:
+        if loginInput == password:
+            correct = True
             break
+        tries-=1
+
+    return correct
+
 
 def where():
     while True:
@@ -131,7 +142,7 @@ def credit():
         title = "Credentials"
         fieldNames = ["Name", "Email", "Card Number", "Expration Date", "CVV"]
         # DEBUG #
-        placeholder = ['Skylar Garrett', "quitesadgeese@gmail.com", '1234 1234 1234 1234', '12/12', '123']
+        placeholder = ['S Garrett', "quitesadgeese@gmail.com", '1234 1234 1234 1234', '12/12', '123']
         fieldValues = list(multenterbox(msg, title, fieldNames, placeholder))
         exitProgram(fieldValues)
 
@@ -141,6 +152,7 @@ def credit():
         fieldOut = [name.title(), email, card, expire, cvv]
         error = True
 
+
         i = 0
         for field in fieldOut:
             if field == '':
@@ -148,20 +160,25 @@ def credit():
                 error = True
             i += 1
 
+        errorStr = "Error"
+        helpStr = "Contact help team at 'quitesadgeese@gmail.com'"
+        cvvSplit = cvv.split('/')
+
         if len(fieldOut[0]) > 25:
-            msgbox(f"{fieldNames[0]} is too long!\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
+            msgbox(f"{fieldNames[0]} isn't formatted properly.\nIt's is too long!\n{helpStr}.", f"{errorStr}")
         
         elif fieldOut[1].find("@") == -1 or fieldOut[1].find(".") == -1:
-            msgbox(f"{fieldNames[1]} isn't formatted properly.\nRemember to use a '@' and a '.'.\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
+            msgbox(f"{fieldNames[1]} isn't formatted properly.\nRemember to use a '@' and a '.'.\n{helpStr}.", f"{errorStr}")
         
         elif len(fieldOut[2]) > 23:
-            msgbox(f"{fieldNames[2]} //TEST// is too long!\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
-            
+            msgbox(f"{fieldNames[2]} //TEST// is too long!\n{helpStr}.", f"{errorStr}")
+
+            '''or int(cvvSplit[0]) > 31 or int(cvvSplit[1]) > 12'''
         elif fieldOut[3].find("/") == -1 or len(fieldOut[3]) != 5:
-            msgbox(f"{fieldNames[3]} isn't formatted properly.\nRemember to use a '/' and 5 digits.\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
+            msgbox(f"{fieldNames[3]} isn't formatted properly.\nRemember to use a '/' and a valid date.\n{helpStr}.", f"{errorStr}")
         
         elif not fieldOut[4].isdigit():
-            msgbox(f"{fieldNames[4]} isn't formatted properly.\n{fieldNames[4]} can only contain numbers.\nContact help team at 'quitesadgeese@gmail.com'.", "Error")
+            msgbox(f"{fieldNames[4]} isn't formatted properly.\n{fieldNames[4]} can only contain numbers.\n{helpStr}.", f"{errorStr}")
         else:
             error = False
 
@@ -200,6 +217,7 @@ def invoice(fieldOut, floc, tloc, mileage, magnitude, time, price):
         Card details:           {fieldOut[2]}
                                 {fieldOut[3]}
                                 {fieldOut[4]}
+
         Sent from:              {floc}
         To:                     {tloc}
         Distance:               {mileage} miles
@@ -220,9 +238,12 @@ def goodbye(fieldOut):
 # RUN FUNCS #
 
 # remove for examination
-login("test")
-floc, tloc, mileage = where()
-magnitude, time, price = carriage(mileage)
-fieldOut = credit()
-invoice(fieldOut, floc, tloc, mileage, magnitude, time, price)
-goodbye(fieldOut)
+correct = login("test")
+if correct == True:
+    floc, tloc, mileage = where()
+    magnitude, time, price = carriage(mileage)
+    fieldOut = credit()
+    invoice(fieldOut, floc, tloc, mileage, magnitude, time, price)
+    goodbye(fieldOut)
+else:
+    noAccess()
